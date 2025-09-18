@@ -5,13 +5,12 @@ import {
   fetchAllWeatherData,
   fetchPrecipitationProbability,
 } from "../utils/openMeteo";
+import { locations, defaultLocation } from "../data/locations";
 import "../styles/global.css";
 import "../styles/Home.css";
 
 export default function Home() {
-  // Example: San José, Costa Rica
-  const LAT = 9.93;
-  const LON = -84.08;
+  const [selectedLocation, setSelectedLocation] = useState(defaultLocation);
   const [weather, setWeather] = useState(null);
   const [rainProb, setRainProb] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -22,8 +21,8 @@ export default function Home() {
       setLoading(true);
       try {
         const [weatherData, rainData] = await Promise.all([
-          fetchAllWeatherData(LAT, LON),
-          fetchPrecipitationProbability(LAT, LON),
+          fetchAllWeatherData(selectedLocation.lat, selectedLocation.lon),
+          fetchPrecipitationProbability(selectedLocation.lat, selectedLocation.lon),
         ]);
         setWeather(weatherData);
         setRainProb(rainData);
@@ -34,7 +33,7 @@ export default function Home() {
       }
     }
     fetchData();
-  }, []);
+  }, [selectedLocation]);
 
   // Prepare alert items
   let alertas = [];
@@ -60,106 +59,120 @@ export default function Home() {
 
   return (
     <div className="home-root">
-      <main
-        style={{
-          flex: 1,
-          width: "100%",
-          maxWidth: 1200,
-          margin: "0 auto",
-          padding: "2rem 1rem 1rem 1rem",
-        }}
-      >
+      <main className="home-main">
         <div className="main-content">
-          <section style={{ flex: 2, minWidth: 320 }}>
+          {/* Left Section - Map */}
+          <section className="home-left-section">
             <div className="card card--pad">
-              <div
-                style={{
-                  display: "flex",
-                  gap: 8,
-                  marginBottom: 10,
-                  flexWrap: "wrap",
-                }}
-              >
-                <span className="kbd">Ahora</span>
-                <span className="kbd">Próximo</span>
-                <span className="kbd">Siguiente 3 hrs</span>
+              {/* Location Selector */}
+              <div className="location-selector">
+                <span className="location-label">📍 Ubicación:</span>
+                <select 
+                  className="location-dropdown"
+                  value={selectedLocation.id}
+                  onChange={(e) => {
+                    const location = locations.find(loc => loc.id === e.target.value);
+                    setSelectedLocation(location);
+                  }}
+                >
+                  {locations.map((location) => (
+                    <option key={location.id} value={location.id}>
+                      {location.name}, {location.country}
+                    </option>
+                  ))}
+                </select>
               </div>
-              {/* Mapa embed (se puede reemplazar fácil por Leaflet/API) */}
+              <div className="location-info">
+                Coordenadas: {selectedLocation.lat.toFixed(2)}°, {selectedLocation.lon.toFixed(2)}°
+              </div>
+              
+              <div className="home-time-controls">
+                <span className="kbd home-time-kbd">Ahora</span>
+                <span className="kbd home-time-kbd">Próximo</span>
+                <span className="kbd home-time-kbd">Siguiente 3 hrs</span>
+              </div>
+              
+              {/* Dynamic Map */}
               <iframe
                 className="map-frame"
-                title="Mapa GAM"
-                src="https://www.openstreetmap.org/export/embed.html?bbox=-84.30%2C9.79%2C-83.80%2C10.16&layer=mapnik&marker=9.93%2C-84.08"
+                title={`Mapa ${selectedLocation.name}`}
+                src={`https://www.openstreetmap.org/export/embed.html?bbox=${selectedLocation.bbox}&layer=mapnik&marker=${selectedLocation.lat},${selectedLocation.lon}`}
               ></iframe>
             </div>
           </section>
-          <aside className="side-stack">
-            {alertas.length > 0 && (
-              <AlertBox
-                title="Alerta - Emergencia"
-                items={alertas}
-                tone="alert"
-              />
-            )}
-            <AlertBox
-              title="Diálogo: Recomendaciones"
-              items={recos}
-              tone="ok"
-            />
-            <AlertBox
-              title="Diálogo: Recomendaciones"
-              items={recos}
-              tone="ok"
-            />
-          </aside>
-        </div>
 
-        {/* Widgets inferiores */}
-        <div className="statcard-row">
-          {loading ? (
-            <>
-              <StatCard icon="☁️" label="Cargando..." value="—" />
-              <StatCard icon="🌧️" label="Cargando..." value="—" />
-              <StatCard icon="💨" label="Cargando..." value="—" />
-              <StatCard icon="🫧" label="Cargando..." value="—" />
-              <StatCard icon="🔵" label="Cargando..." value="—" />
-            </>
-          ) : error ? (
-            <StatCard icon="⚠️" label={error} value="—" />
-          ) : (
-            <>
-              <StatCard
-                icon="☁️"
-                label={
-                  current?.weathercode
-                    ? `Código: ${current.weathercode}`
-                    : "Mayormente nublado"
-                }
-                value={current?.temperature ? `${current.temperature}°C` : "—"}
+          {/* Right Section - Stats and Alerts */}
+          <section className="home-right-section">
+            {/* Stat Cards */}
+            <div className="statcard-row">
+              {loading ? (
+                <>
+                  <StatCard icon="☁️" label="Cargando..." value="—" />
+                  <StatCard icon="🌧️" label="Cargando..." value="—" />
+                  <StatCard icon="💨" label="Cargando..." value="—" />
+                  <StatCard icon="🫧" label="Cargando..." value="—" />
+                  <StatCard icon="🔵" label="Cargando..." value="—" />
+                </>
+              ) : error ? (
+                <StatCard icon="⚠️" label={error} value="—" />
+              ) : (
+                <>
+                  <StatCard
+                    icon="☁️"
+                    label={
+                      current?.weathercode
+                        ? `Código: ${current.weathercode}`
+                        : "Mayormente nublado"
+                    }
+                    value={current?.temperature ? `${current.temperature}°C` : "—"}
+                  />
+                  <StatCard
+                    icon="🌧️"
+                    label="Prob. lluvia"
+                    value={
+                      rainProbability !== undefined ? `${rainProbability}%` : "—"
+                    }
+                  />
+                  <StatCard
+                    icon="💨"
+                    label="Viento"
+                    value={current?.windspeed ? `${current.windspeed} km/h` : "—"}
+                  />
+                  <StatCard
+                    icon="🫧"
+                    label="Humedad"
+                    value={humidity !== undefined ? `${humidity}%` : "—"}
+                  />
+                  <StatCard
+                    icon="🔵"
+                    label="Presión"
+                    value={pressure !== undefined ? `${pressure} hPa` : "—"}
+                  />
+                </>
+              )}
+            </div>
+
+            {/* Alert Boxes */}
+            <div className="alert-stack">
+              {alertas.length > 0 && (
+                <AlertBox
+                  title="Alerta - Emergencia"
+                  items={alertas}
+                  tone="alert"
+                />
+              )}
+              <AlertBox
+                title="Diálogo: Recomendaciones"
+                items={recos}
+                tone="ok"
               />
-              <StatCard
-                icon="🌧️"
-                label="Prob. lluvia"
-                value={
-                  rainProbability !== undefined ? `${rainProbability}%` : "—"
-                }
+              <AlertBox
+                title="Diálogo: Recomendaciones"
+                items={recos}
+                tone="ok"
               />
-              <StatCard
-                icon="💨"
-                label="Viento"
-                value={current?.windspeed ? `${current.windspeed} km/h` : "—"}
-              />
-              <StatCard
-                icon="🫧"
-                label="Humedad"
-                value={humidity !== undefined ? `${humidity}%` : "—"}
-              />
-              <StatCard
-                icon="🔵"
-                label="Presión"
-                value={pressure !== undefined ? `${pressure} hPa` : "—"}
-              />
-            </>
-          )}
+            </div>
+          </section>
         </div>
       </main>
     </div>
