@@ -11,15 +11,13 @@ export default function App() {
     return (
         <div className="app-shell">
             <Navbar />
-            <main className="container">
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/pronostico" element={<Forecast />} />
-                    <Route path="/calidad-del-aire" element={<AirQuality />} />
-                    <Route path="/material" element={<Material />} />
-                    <Route path="/suscripcion" element={<Suscripcion />} />
-                </Routes>
-            </main>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/pronostico" element={<main className="container"><Forecast /></main>} />
+                <Route path="/calidad-del-aire" element={<main className="container"><AirQuality /></main>} />
+                <Route path="/material" element={<main className="container"><Material /></main>} />
+                <Route path="/suscripcion" element={<main className="container"><Suscripcion /></main>} />
+            </Routes>
 
             <footer className="footer">
                 <div className="footer-grid">
@@ -38,6 +36,11 @@ export default function App() {
                         <a href="/material">Guías</a>
                         <a href="/">API pública</a>
                         <a href="/">FAQ</a>
+                    </div>
+                    <div>
+                        <h4>Datos</h4>
+                        <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a>
+                        <a href="https://www.openstreetmap.org/" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>
                     </div>
                     <div>
                         <h4>Legal</h4>
