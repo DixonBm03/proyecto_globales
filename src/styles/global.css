@@ -24,11 +24,11 @@ img{ max-width:100%; display:block }
 
 /* ===== Layout base ===== */
 .container{
-    max-width:1180px; margin:0 auto; padding: 0 20px;
+    max-width:1600px; margin:0 auto; padding: 0 24px;
 }
 .page{
-    min-height: calc(100dvh - 220px); /* header + footer */
-    padding: 24px 0 56px;
+    min-height: calc(100dvh - 200px); /* header + footer */
+    padding: 24px 0 32px;
 }
 
 /* ===== Header ===== */
@@ -64,7 +64,7 @@ img{ max-width:100%; display:block }
 .grid--2{ grid-template-columns: 1.3fr .9fr }
 .grid--3{ grid-template-columns: repeat(3,1fr) }
 .grid--4{ grid-template-columns: repeat(4,1fr) }
-.kbd{ background:#eef2ff; padding:2px 8px; border-radius:8px; border:1px solid #dbeafe }
+.kbd{ background:#eef2ff; padding:6px 12px; border-radius:10px; border:1px solid #dbeafe; font-size:13px; font-weight:500 }
 
 /* ===== Footer (MISMO color en TODAS) ===== */
 .footer{
