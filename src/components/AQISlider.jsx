@@ -1,35 +1,35 @@
-import { useEffect, useMemo, useState } from "react";
-import { getCategory, AQI_CATEGORIES } from "../utils/aqi";
-import emailjs from "@emailjs/browser";
-import { useAlerts } from "../context/AlertContext";
+import { useEffect, useMemo, useState } from 'react';
+import { getCategory, AQI_CATEGORIES } from '../utils/aqi';
+import emailjs from '@emailjs/browser';
+import { useAlerts } from '../context/AlertContext';
 
 // Env (opcional) – CRA
 const ENV_SERVICE =
-  typeof process !== "undefined" &&
+  typeof process !== 'undefined' &&
   process.env &&
   process.env.REACT_APP_EMAILJS_SERVICE_ID
     ? process.env.REACT_APP_EMAILJS_SERVICE_ID
-    : "";
+    : '';
 const ENV_TEMPLATE =
-  typeof process !== "undefined" &&
+  typeof process !== 'undefined' &&
   process.env &&
   process.env.REACT_APP_EMAILJS_TEMPLATE_ID
     ? process.env.REACT_APP_EMAILJS_TEMPLATE_ID
-    : "";
+    : '';
 const ENV_PUBLIC =
-  typeof process !== "undefined" &&
+  typeof process !== 'undefined' &&
   process.env &&
   process.env.REACT_APP_EMAILJS_PUBLIC_KEY
     ? process.env.REACT_APP_EMAILJS_PUBLIC_KEY
-    : "";
+    : '';
 
 // Permite configurar desde la UI (localStorage) sin .env
 const LS_SERVICE =
-  typeof window !== "undefined" ? localStorage.getItem("emailjs_service") : "";
+  typeof window !== 'undefined' ? localStorage.getItem('emailjs_service') : '';
 const LS_TEMPLATE =
-  typeof window !== "undefined" ? localStorage.getItem("emailjs_template") : "";
+  typeof window !== 'undefined' ? localStorage.getItem('emailjs_template') : '';
 const LS_PUBLIC =
-  typeof window !== "undefined" ? localStorage.getItem("emailjs_public") : "";
+  typeof window !== 'undefined' ? localStorage.getItem('emailjs_public') : '';
 
 const SERVICE_ID = LS_SERVICE || ENV_SERVICE;
 const TEMPLATE_ID = LS_TEMPLATE || ENV_TEMPLATE;
@@ -45,13 +45,13 @@ export default function AQISlider() {
     const danger = aqi >= 151;
     if (!danger || !enabled || !email) return;
 
-    const already = sessionStorage.getItem("lastAlertCat");
+    const already = sessionStorage.getItem('lastAlertCat');
     const now = cat.name;
     if (already === now) return;
-    sessionStorage.setItem("lastAlertCat", now);
+    sessionStorage.setItem('lastAlertCat', now);
 
     if (!EMAIL_READY) {
-      console.info("Correo NO enviado: EmailJS no configurado (opcional).");
+      console.info('Correo NO enviado: EmailJS no configurado (opcional).');
       return;
     }
 
@@ -65,28 +65,28 @@ export default function AQISlider() {
           aqi_status: now,
           aqi_message: cat.msg,
         })
-        .then(() => console.log("Alerta enviada"))
-        .catch((err) => console.error("EmailJS error", err));
+        .then(() => console.log('Alerta enviada'))
+        .catch(err => console.error('EmailJS error', err));
     } catch (e) {
-      console.error("EmailJS init error", e);
+      console.error('EmailJS init error', e);
     }
   }, [aqi, cat, email, enabled]);
 
   // ancho correcto por tramo: (max - min) / 300
-  const widthPct = (min, max) => (((max - min) / 300) * 100).toFixed(4) + "%";
+  const widthPct = (min, max) => (((max - min) / 300) * 100).toFixed(4) + '%';
 
   return (
-    <div className="card">
-      <div className="card-head">
+    <div className='card'>
+      <div className='card-head'>
         <h3>Calidad del Aire (AQI)</h3>
-        <span className="badge" style={{ background: cat.color }}>
+        <span className='badge' style={{ background: cat.color }}>
           {cat.name}
         </span>
       </div>
 
       {/* Barra graduada 0–300 */}
-      <div className="aqi-scale">
-        {AQI_CATEGORIES.map((c) => (
+      <div className='aqi-scale'>
+        {AQI_CATEGORIES.map(c => (
           <div
             key={c.name}
             title={`${c.name}: ${c.min}-${c.max}`}
@@ -94,12 +94,12 @@ export default function AQISlider() {
           />
         ))}
         <div
-          className={`needle ${aqi >= 151 ? "shake" : ""}`}
+          className={`needle ${aqi >= 151 ? 'shake' : ''}`}
           style={{ left: `calc(${aqi / 3}% - 6px)` }}
         />
       </div>
       {/* Etiquetas debajo (ya no dentro de la barra) */}
-      <div className="scale-labels">
+      <div className='scale-labels'>
         <span>0</span>
         <span>50</span>
         <span>100</span>
@@ -109,23 +109,23 @@ export default function AQISlider() {
       </div>
 
       {/* Slider */}
-      <div className="slider-row">
+      <div className='slider-row'>
         <input
-          type="range"
-          min="0"
-          max="300"
+          type='range'
+          min='0'
+          max='300'
           value={aqi}
-          onChange={(e) => setAqi(parseInt(e.target.value, 10))}
-          className="aqi-slider"
+          onChange={e => setAqi(parseInt(e.target.value, 10))}
+          className='aqi-slider'
         />
-        <div className="aqi-value">
+        <div className='aqi-value'>
           <strong>{aqi}</strong>
         </div>
       </div>
 
       {/* Mensaje dinámico */}
-      <div className="advice" style={{ borderColor: cat.color }}>
-        <p className="advice-title">Recomendación</p>
+      <div className='advice' style={{ borderColor: cat.color }}>
+        <p className='advice-title'>Recomendación</p>
         <p>{cat.msg}</p>
         {aqi <= 50 && (
           <p>
