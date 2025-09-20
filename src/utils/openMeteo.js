@@ -8,10 +8,10 @@ export async function fetchPrecipitationProbability(latitude, longitude) {
   const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=precipitation_probability`;
   try {
     const response = await fetch(url);
-    if (!response.ok) throw new Error("Network response was not ok");
+    if (!response.ok) throw new Error('Network response was not ok');
     return await response.json();
   } catch (error) {
-    console.error("Error fetching precipitation probability:", error);
+    console.error('Error fetching precipitation probability:', error);
     return null;
   }
 }
@@ -26,24 +26,24 @@ export async function fetchAirQuality(
   latitude,
   longitude,
   variables = [
-    "pm10",
-    "pm2_5",
-    "carbon_monoxide",
-    "nitrogen_dioxide",
-    "sulphur_dioxide",
-    "ozone",
-    "dust",
-    "uv_index",
+    'pm10',
+    'pm2_5',
+    'carbon_monoxide',
+    'nitrogen_dioxide',
+    'sulphur_dioxide',
+    'ozone',
+    'dust',
+    'uv_index',
   ]
 ) {
-  const vars = variables.join(",");
+  const vars = variables.join(',');
   const url = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${latitude}&longitude=${longitude}&hourly=${vars}`;
   try {
     const response = await fetch(url);
-    if (!response.ok) throw new Error("Network response was not ok");
+    if (!response.ok) throw new Error('Network response was not ok');
     return await response.json();
   } catch (error) {
-    console.error("Error fetching air quality:", error);
+    console.error('Error fetching air quality:', error);
     return null;
   }
 }
@@ -59,10 +59,10 @@ export async function fetchCurrentAQI(latitude, longitude) {
   const url = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${latitude}&longitude=${longitude}&hourly=us_aqi,eu_aqi`;
   try {
     const response = await fetch(url);
-    if (!response.ok) throw new Error("Network response was not ok");
+    if (!response.ok) throw new Error('Network response was not ok');
     return await response.json();
   } catch (error) {
-    console.error("Error fetching AQI:", error);
+    console.error('Error fetching AQI:', error);
     return null;
   }
 }
@@ -78,10 +78,10 @@ export async function fetchCurrentWeather(latitude, longitude) {
   const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`;
   try {
     const response = await fetch(url);
-    if (!response.ok) throw new Error("Network response was not ok");
+    if (!response.ok) throw new Error('Network response was not ok');
     return await response.json();
   } catch (error) {
-    console.error("Error fetching current weather:", error);
+    console.error('Error fetching current weather:', error);
     return null;
   }
 }
@@ -97,20 +97,20 @@ export async function fetchHourlyWeather(
   latitude,
   longitude,
   variables = [
-    "temperature_2m",
-    "relative_humidity_2m",
-    "windspeed_10m",
-    "surface_pressure",
+    'temperature_2m',
+    'relative_humidity_2m',
+    'windspeed_10m',
+    'surface_pressure',
   ]
 ) {
-  const vars = variables.join(",");
+  const vars = variables.join(',');
   const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=${vars}`;
   try {
     const response = await fetch(url);
-    if (!response.ok) throw new Error("Network response was not ok");
+    if (!response.ok) throw new Error('Network response was not ok');
     return await response.json();
   } catch (error) {
-    console.error("Error fetching hourly weather:", error);
+    console.error('Error fetching hourly weather:', error);
     return null;
   }
 }
@@ -125,10 +125,10 @@ export async function fetchWeatherAlerts(latitude, longitude) {
   const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&weather_alerts=true`;
   try {
     const response = await fetch(url);
-    if (!response.ok) throw new Error("Network response was not ok");
+    if (!response.ok) throw new Error('Network response was not ok');
     return await response.json();
   } catch (error) {
-    console.error("Error fetching weather alerts:", error);
+    console.error('Error fetching weather alerts:', error);
     return null;
   }
 }
@@ -144,20 +144,20 @@ export async function fetchAllWeatherData(
   latitude,
   longitude,
   hourlyVars = [
-    "temperature_2m",
-    "relative_humidity_2m",
-    "windspeed_10m",
-    "surface_pressure",
+    'temperature_2m',
+    'relative_humidity_2m',
+    'windspeed_10m',
+    'surface_pressure',
   ]
 ) {
-  const vars = hourlyVars.join(",");
+  const vars = hourlyVars.join(',');
   const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&hourly=${vars}&weather_alerts=true`;
   try {
     const response = await fetch(url);
-    if (!response.ok) throw new Error("Network response was not ok");
+    if (!response.ok) throw new Error('Network response was not ok');
     return await response.json();
   } catch (error) {
-    console.error("Error fetching all weather data:", error);
+    console.error('Error fetching all weather data:', error);
     return null;
   }
 }
