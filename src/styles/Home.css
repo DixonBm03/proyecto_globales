@@ -78,12 +78,20 @@
   .card.card--pad {
     padding: 16px;
   }
+  .coordinate-display {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .coordinate-item {
+    min-width: 100%;
+    justify-content: center;
+  }
 }
 
 .card.card--pad {
   margin-bottom: 16px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-  padding: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  padding: 24px;
 }
 
 .map-frame {
@@ -91,7 +99,8 @@
   height: 500px;
   border: 0;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin-top: 8px;
 }
 
 aside.side-stack {
@@ -148,15 +157,35 @@ aside.side-stack {
 
 .home-time-controls {
   display: flex;
-  gap: 10px;
-  margin-bottom: 12px;
+  gap: 12px;
+  margin-top: 24px;
+  margin-bottom: 20px;
   flex-wrap: wrap;
+  padding: 16px 0;
+  border-top: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .home-time-kbd {
   padding: 8px 14px;
   font-size: 14px;
   font-weight: 600;
+  border: none;
+  background: #eef2ff;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.home-time-kbd:hover {
+  background: #dbeafe;
+  transform: translateY(-1px);
+}
+
+.home-time-kbd.active {
+  background: #2eaadc;
+  color: white;
+  box-shadow: 0 2px 8px rgba(46, 170, 220, 0.3);
 }
 
 /* Location selector styles */
@@ -164,11 +193,12 @@ aside.side-stack {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 12px;
-  padding: 10px;
+  margin-bottom: 20px;
+  padding: 16px;
   background: #f8fafc;
-  border-radius: 10px;
+  border-radius: 12px;
   border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .location-label {
@@ -196,7 +226,50 @@ aside.side-stack {
 }
 
 .location-info {
-  font-size: 12px;
+  margin-top: 16px;
+  margin-bottom: 20px;
+}
+
+.coordinate-display {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.coordinate-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: #f8fafc;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  min-width: 140px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.coordinate-icon {
+  font-size: 16px;
+  opacity: 0.8;
+}
+
+.coordinate-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.coordinate-label {
+  font-size: 11px;
   color: #6b7280;
-  margin-top: 4px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.coordinate-value {
+  font-size: 13px;
+  color: #374151;
+  font-weight: 600;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
 }
