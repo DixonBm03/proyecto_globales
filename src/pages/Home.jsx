@@ -1,4 +1,5 @@
 import AlertBox from '../components/AlertBox';
+import EmergencyAlertModal from '../components/EmergencyAlertModal';
 import StatAccordion from '../components/StatAccordion';
 import { useEffect, useState } from 'react';
 import {
@@ -77,6 +78,9 @@ export default function Home() {
 
   return (
     <div className='home-root'>
+      {/* Emergency Alert Modal */}
+      <EmergencyAlertModal weatherData={weatherData} alerts={alertas} />
+
       <main className='home-main'>
         <div className='main-content'>
           {/* Left Section - Map */}
