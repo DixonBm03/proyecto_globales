@@ -6,13 +6,13 @@
     "@emailjs/browser": "^4.4.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "react-router-dom": "^7.8.2",
+    "react-router-dom": "^7.9.1",
     "react-scripts": "^5.0.1"
   },
   "devDependencies": {
-    "prettier": "^3.0.0",
-    "stylelint": "^15.0.0",
-    "stylelint-config-standard": "^34.0.0"
+    "prettier": "^3.6.2",
+    "stylelint": "^16.24.0",
+    "stylelint-config-standard": "^39.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -23,8 +23,10 @@
     "format:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,css,scss,json,md}\"",
     "lint:css": "stylelint \"src/**/*.{css,scss}\"",
     "lint:css:fix": "stylelint \"src/**/*.{css,scss}\" --fix",
-    "lint": "npm run lint:css",
-    "lint:fix": "npm run lint:css:fix",
+    "lint:js": "eslint \"src/**/*.{js,jsx}\"",
+    "lint:js:fix": "eslint \"src/**/*.{js,jsx}\" --fix",
+    "lint": "npm run lint:css && npm run lint:js",
+    "lint:fix": "npm run lint:css:fix && npm run lint:js:fix",
     "format:all": "npm run format && npm run lint:fix"
   },
   "eslintConfig": {
