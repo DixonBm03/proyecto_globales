@@ -148,6 +148,7 @@ export async function fetchAllWeatherData(
     'relative_humidity_2m',
     'windspeed_10m',
     'surface_pressure',
+    'uv_index',
   ]
 ) {
   const vars = hourlyVars.join(',');
