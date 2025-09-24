@@ -1,0 +1,267 @@
+.home-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 0;
+}
+
+.main-content {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 32px;
+  align-items: start;
+  margin-bottom: 20px;
+  min-height: calc(100vh - 200px);
+}
+
+@media (width <= 1200px) {
+  .home-main {
+    max-width: 100%;
+    padding: 1.5rem 1.5rem 1rem;
+  }
+
+  .main-content {
+    grid-template-columns: 1.2fr 1fr;
+    gap: 24px;
+  }
+}
+
+@media (width <= 900px) {
+  .home-main {
+    padding: 1.5rem 1rem 1rem;
+  }
+
+  .main-content {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    min-height: auto;
+  }
+
+  .statcard-row {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+@media (width <= 600px) {
+  .home-main {
+    padding: 1rem 0.75rem 0.5rem;
+  }
+
+  .main-content {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    min-height: auto;
+  }
+
+  .statcard-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .map-frame {
+    height: 300px;
+  }
+
+  .card.card--pad {
+    padding: 16px;
+  }
+
+  .coordinates-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .home-time-controls {
+    gap: 6px;
+    padding: 12px 0;
+  }
+
+  .home-time-kbd {
+    padding: 5px 8px;
+    font-size: 11px;
+    min-width: 50px;
+  }
+}
+
+.card.card--pad {
+  margin-bottom: 16px;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 8%);
+  padding: 24px;
+}
+
+.map-frame {
+  width: 100%;
+  height: 500px;
+  border: 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgb(0 0 0 / 10%);
+  margin-top: 8px;
+}
+
+aside.side-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.statcard-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.alert-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Home page specific styles */
+.home-main {
+  flex: 1;
+  width: 100%;
+  margin: 0;
+  padding: 1.5rem 2rem 1rem;
+}
+
+.home-left-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-right-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.home-time-controls {
+  display: flex;
+  gap: 8px;
+  margin-top: 24px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  padding: 16px 0;
+  border-top: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.home-time-kbd {
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  border: none;
+  background: #eef2ff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 60px;
+  text-align: center;
+}
+
+.home-time-kbd:hover {
+  background: #dbeafe;
+  transform: translateY(-1px);
+}
+
+.home-time-kbd.active {
+  background: #2eaadc;
+  color: white;
+  box-shadow: 0 2px 8px rgb(46 170 220 / 30%);
+}
+
+/* Location section styles */
+.location-section {
+  margin-bottom: 20px;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 5%);
+}
+
+.location-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.location-label {
+  font-weight: 600;
+  color: #374151;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.location-dropdown {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: white;
+  font-size: 14px;
+  color: #374151;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.location-dropdown:focus {
+  outline: none;
+  border-color: #2eaadc;
+  box-shadow: 0 0 0 3px rgb(46 170 220 / 10%);
+}
+
+.coordinates-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.coordinate-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  flex: 1;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 3%);
+  transition: all 0.2s ease;
+}
+
+.coordinate-item:hover {
+  border-color: #2eaadc;
+  box-shadow: 0 2px 4px rgb(46 170 220 / 10%);
+}
+
+.coordinate-icon {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.coordinate-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.coordinate-label {
+  font-size: 11px;
+  color: #6b7280;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.coordinate-value {
+  font-size: 13px;
+  color: #374151;
+  font-weight: 600;
+  font-family:
+    'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New',
+    monospace;
+}
