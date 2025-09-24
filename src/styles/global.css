@@ -559,3 +559,164 @@ img {
     align-self: flex-end;
   }
 }
+
+/* Emergency Alert Modal Styles */
+.emergency-alert-content {
+  max-width: 100%;
+}
+
+.emergency-condition {
+  margin-bottom: 16px;
+  padding: 16px;
+  border-radius: 10px;
+  border-left: 4px solid;
+}
+
+.emergency-condition.critical {
+  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+  border-left-color: #dc2626;
+  box-shadow: 0 4px 12px rgb(220 38 38 / 15%);
+}
+
+.emergency-header {
+  margin-bottom: 12px;
+}
+
+.emergency-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #dc2626;
+  margin: 0 0 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.emergency-message {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #991b1b;
+  background: rgb(220 38 38 / 10%);
+  padding: 6px 10px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.emergency-description {
+  font-size: 0.9rem;
+  color: #374151;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.emergency-actions h5 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #dc2626;
+  margin: 0 0 8px;
+}
+
+.emergency-actions ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.emergency-actions li {
+  padding: 6px 0;
+  padding-left: 20px;
+  position: relative;
+  color: #374151;
+  line-height: 1.3;
+  font-size: 0.9rem;
+}
+
+.emergency-actions li::before {
+  content: '⚠️';
+  position: absolute;
+  left: 0;
+  top: 8px;
+}
+
+.emergency-footer {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 2px solid #fecaca;
+  text-align: center;
+}
+
+.emergency-acknowledge-btn {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 10px;
+}
+
+.emergency-acknowledge-btn:hover {
+  background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgb(220 38 38 / 30%);
+}
+
+.emergency-note {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.emergency-note small {
+  display: block;
+  padding: 8px 12px;
+  background: rgb(220 38 38 / 5%);
+  border-radius: 6px;
+  border: 1px solid rgb(220 38 38 / 10%);
+}
+
+/* Modal backdrop enhancement for emergency alerts */
+.modal-backdrop.emergency {
+  background: rgb(0 0 0 / 80%);
+  backdrop-filter: blur(4px);
+}
+
+.modal.emergency {
+  border: 2px solid #dc2626;
+  box-shadow: 0 20px 40px rgb(220 38 38 / 30%);
+  animation: emergencyPulse 2s infinite;
+  width: min(600px, 90%);
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.modal.emergency .modal-head {
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  color: white;
+}
+
+.modal.emergency .modal-head h3 {
+  color: white;
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.modal.emergency .modal-body {
+  padding: 20px;
+  max-height: calc(80vh - 80px);
+  overflow-y: auto;
+}
+
+@keyframes emergencyPulse {
+  0%,
+  100% {
+    box-shadow: 0 20px 40px rgb(220 38 38 / 30%);
+  }
+
+  50% {
+    box-shadow: 0 20px 40px rgb(220 38 38 / 50%);
+  }
+}
