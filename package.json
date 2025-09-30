@@ -19,15 +19,17 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,scss,json,md}\"",
-    "format:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,css,scss,json,md}\"",
-    "lint:css": "stylelint \"src/**/*.{css,scss}\"",
-    "lint:css:fix": "stylelint \"src/**/*.{css,scss}\" --fix",
+    "format": "prettier --write \"src/**/*.{js,jsx,css,json,md}\"",
+    "format:check": "prettier --check \"src/**/*.{js,jsx,css,json,md}\"",
+    "lint:css": "stylelint \"src/**/*.css\"",
+    "lint:css:fix": "stylelint \"src/**/*.css\" --fix",
     "lint:js": "eslint \"src/**/*.{js,jsx}\"",
     "lint:js:fix": "eslint \"src/**/*.{js,jsx}\" --fix",
     "lint": "npm run lint:css && npm run lint:js",
     "lint:fix": "npm run lint:css:fix && npm run lint:js:fix",
-    "format:all": "npm run format && npm run lint:fix"
+    "format:all": "npm run format && npm run lint:fix",
+    "preview": "npm run build && npx serve -s build",
+    "clean": "rm -rf build node_modules/.cache"
   },
   "eslintConfig": {
     "extends": [
