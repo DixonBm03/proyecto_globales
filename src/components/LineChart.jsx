@@ -1,73 +1,73 @@
 // Simple line chart con SVG puro
 export default function LineChart({ data, height = 160, min = 10, max = 28 }) {
-    const padX = 24,
-        padY = 20;
-    const W = 1000,
-        H = height;
-    
-    const xs = data.map(
-        (_, i) => padX + (i * (W - 2 * padX)) / (data.length - 1)
-    );
+  const padX = 24,
+    padY = 20;
+  const W = 1000,
+    H = height;
 
-    const scaleY = v => {
-        const t = (v - min) / (max - min);
-        return H - padY - t * (H - 2 * padY);
-    };
+  const xs = data.map(
+    (_, i) => padX + (i * (W - 2 * padX)) / (data.length - 1)
+  );
 
-    const path = data
-        .map((v, i) => `${i === 0 ? 'M' : 'L'} ${xs[i]} ${scaleY(v)}`)
-        .join(' ');
+  const scaleY = v => {
+    const t = (v - min) / (max - min);
+    return H - padY - t * (H - 2 * padY);
+  };
 
-    return (
-        <div className='card card--pad' style={{ overflow: 'hidden' }}>
-            <svg
-                viewBox={`0 0 ${W} ${H}`}
-                width='100%'
-                height={H}
-                role='img'
-                aria-label='Gráfico de temperatura'
-            >
-                {[...Array(4)].map((_, i) => (
-                    <line
-                        key={i}
-                        x1={padX}
-                        x2={W - padX}
-                        y1={padY + i * ((H - 2 * padY) / 3)}
-                        y2={padY + i * ((H - 2 * padY) / 3)}
-                        stroke='#e5e7eb'
-                    />
-                ))}
+  const path = data
+    .map((v, i) => `${i === 0 ? 'M' : 'L'} ${xs[i]} ${scaleY(v)}`)
+    .join(' ');
 
-                <path
-                    d={path}
-                    fill='none'
-                    stroke='#f59e0b'
-                    strokeWidth='4'
-                    strokeLinejoin='round'
-                    strokeLinecap='round'
-                />
+  return (
+    <div className='card card--pad' style={{ overflow: 'hidden' }}>
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        width='100%'
+        height={H}
+        role='img'
+        aria-label='Gráfico de temperatura'
+      >
+        {[...Array(4)].map((_, i) => (
+          <line
+            key={i}
+            x1={padX}
+            x2={W - padX}
+            y1={padY + i * ((H - 2 * padY) / 3)}
+            y2={padY + i * ((H - 2 * padY) / 3)}
+            stroke='#e5e7eb'
+          />
+        ))}
 
-                {data.map((temp, i) => {
-                    const x = xs[i];
-                    const y = scaleY(temp);
-                    return (
-                        <g key={i}>
-                            <circle cx={x} cy={y} r='6' fill='#f59e0b' />
+        <path
+          d={path}
+          fill='none'
+          stroke='#f59e0b'
+          strokeWidth='4'
+          strokeLinejoin='round'
+          strokeLinecap='round'
+        />
 
-                            <text
-                                x={x}
-                                y={y - 10}
-                                textAnchor='middle'
-                                fontSize='24'
-                                fill='#f59e0b'
-                                fontWeight='bold'
-                            >
-                                {temp}°
-                            </text>
-                        </g>
-                    );
-                })}
-            </svg>
-        </div>
-    );
+        {data.map((temp, i) => {
+          const x = xs[i];
+          const y = scaleY(temp);
+          return (
+            <g key={i}>
+              <circle cx={x} cy={y} r='6' fill='#f59e0b' />
+
+              <text
+                x={x}
+                y={y - 10}
+                textAnchor='middle'
+                fontSize='24'
+                fill='#f59e0b'
+                fontWeight='bold'
+              >
+                {temp}°
+              </text>
+            </g>
+          );
+        })}
+      </svg>
+    </div>
+  );
 }
