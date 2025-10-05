@@ -44,3 +44,42 @@ export function getCategory(aqi) {
   }
   return AQI_CATEGORIES[0];
 }
+
+
+/** Recorta el AQI a tu escala visual 0–300 */
+export function clampToScale(aqi) {
+  if (aqi == null || Number.isNaN(aqi)) return null;
+  return Math.max(0, Math.min(300, Math.round(aqi)));
+}
+
+/** Devuelve un número de severidad para comparar cambios (0..5 aprox) */
+export function severityIndex(aqi) {
+  if (aqi == null) return 0;
+  if (aqi <  51)  return 1;   // Bueno
+  if (aqi < 101)  return 2;   // Moderado
+  if (aqi < 151)  return 3;   // Sensible
+  if (aqi < 201)  return 4;   // No recomendable
+  return 5;                   // Muy peligroso (200+)
+}
+
+
+
+export function actionableTips(aqi) {
+  if (aqi >= 150) {
+    return [
+      'Cerrar ventanas y puertas.',
+      'Usar purificador/filtro HEPA si es posible.',
+      'Evitar vías con alto tráfico.',
+      'Limitar ejercicio intenso al aire libre.',
+      'Usar mascarilla (N95/KN95) si debes salir.',
+    ];
+  }
+  if (aqi >= 100) {
+    return [
+      'Personas sensibles: reducir esfuerzos al aire libre.',
+      'Preferir horas tempranas o nocturnas.',
+      'Evitar zonas con mucho tráfico.',
+    ];
+  }
+  return ['Actividad normal.', 'Ventilar tu casa de forma habitual.'];
+}
