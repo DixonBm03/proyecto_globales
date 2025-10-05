@@ -1,76 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import { getCategory, AQI_CATEGORIES } from '../utils/aqi';
-import emailjs from '@emailjs/browser';
-import { useAlerts } from '../context/AlertContext';
-
-// Env (opcional) – CRA
-const ENV_SERVICE =
-  typeof process !== 'undefined' &&
-  process.env &&
-  process.env.REACT_APP_EMAILJS_SERVICE_ID
-    ? process.env.REACT_APP_EMAILJS_SERVICE_ID
-    : '';
-const ENV_TEMPLATE =
-  typeof process !== 'undefined' &&
-  process.env &&
-  process.env.REACT_APP_EMAILJS_TEMPLATE_ID
-    ? process.env.REACT_APP_EMAILJS_TEMPLATE_ID
-    : '';
-const ENV_PUBLIC =
-  typeof process !== 'undefined' &&
-  process.env &&
-  process.env.REACT_APP_EMAILJS_PUBLIC_KEY
-    ? process.env.REACT_APP_EMAILJS_PUBLIC_KEY
-    : '';
-
-// Permite configurar desde la UI (localStorage) sin .env
-const LS_SERVICE =
-  typeof window !== 'undefined' ? localStorage.getItem('emailjs_service') : '';
-const LS_TEMPLATE =
-  typeof window !== 'undefined' ? localStorage.getItem('emailjs_template') : '';
-const LS_PUBLIC =
-  typeof window !== 'undefined' ? localStorage.getItem('emailjs_public') : '';
-
-const SERVICE_ID = LS_SERVICE || ENV_SERVICE;
-const TEMPLATE_ID = LS_TEMPLATE || ENV_TEMPLATE;
-const PUBLIC_KEY = LS_PUBLIC || ENV_PUBLIC;
-const EMAIL_READY = Boolean(SERVICE_ID && TEMPLATE_ID && PUBLIC_KEY);
 
 export default function AQISlider() {
   const [aqi, setAqi] = useState(82);
   const cat = useMemo(() => getCategory(aqi), [aqi]);
-  const { email, enabled } = useAlerts();
-
-  useEffect(() => {
-    const danger = aqi >= 151;
-    if (!danger || !enabled || !email) return;
-
-    const already = sessionStorage.getItem('lastAlertCat');
-    const now = cat.name;
-    if (already === now) return;
-    sessionStorage.setItem('lastAlertCat', now);
-
-    if (!EMAIL_READY) {
-      console.info('Correo NO enviado: EmailJS no configurado (opcional).');
-      return;
-    }
-
-    try {
-      emailjs.init(PUBLIC_KEY);
-      emailjs
-        .send(SERVICE_ID, TEMPLATE_ID, {
-          to_email: email,
-          subject: `⚠️ Alerta AQI: ${now} (${aqi})`,
-          aqi_value: aqi,
-          aqi_status: now,
-          aqi_message: cat.msg,
-        })
-        .then(() => console.log('Alerta enviada'))
-        .catch(err => console.error('EmailJS error', err));
-    } catch (e) {
-      console.error('EmailJS init error', e);
-    }
-  }, [aqi, cat, email, enabled]);
 
   // ancho correcto por tramo: (max - min) / 300
   const widthPct = (min, max) => (((max - min) / 300) * 100).toFixed(4) + '%';

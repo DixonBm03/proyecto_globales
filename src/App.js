@@ -8,7 +8,6 @@ import Forecast from './pages/Forecast';
 import AirQuality from './pages/AirQuality';
 import Material from './pages/Materials';
 import HistoricalWeather from './pages/HistoricalWeather';
-import Subscription from './pages/Subscription';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 
@@ -64,16 +63,6 @@ export default function App() {
             <ProtectedRoute>
               <main className='container'>
                 <Material />
-              </main>
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path='/suscripcion'
-          element={
-            <ProtectedRoute>
-              <main className='container'>
-                <Subscription />
               </main>
             </ProtectedRoute>
           }

@@ -38,9 +38,6 @@ export default function Navbar() {
           <NavLink to='/' className='nav-link'>
             Inicio
           </NavLink>
-          <NavLink to='/suscripcion' className='nav-link'>
-            Suscripción
-          </NavLink>
           <NavLink to='/clima-historico' className='nav-link'>
             Clima Histórico
           </NavLink>
