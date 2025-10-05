@@ -1,6 +1,7 @@
 import AlertBox from '../components/AlertBox';
 import EmergencyAlertModal from '../components/EmergencyAlertModal';
 import StatAccordion from '../components/StatAccordion';
+import LocationMap from '../components/LocationMap';
 import { useEffect, useState } from 'react';
 import {
   fetchAllWeatherData,
@@ -23,7 +24,6 @@ import {
   getLocationOptions,
   formatCoordinates,
 } from '../utils/locationHelpers';
-import { generateMapUrl } from '../utils/mapHelpers';
 import '../styles/global.css';
 import '../styles/Home.css';
 
@@ -34,6 +34,17 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedTimePeriod, setSelectedTimePeriod] = useState('now'); // 'now', 'next', 'next3h'
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // Check authentication status
+  useEffect(() => {
+    const checkLoginStatus = () => {
+      setIsLoggedIn(localStorage.getItem('isAuthenticated') === 'true');
+    };
+    checkLoginStatus();
+    window.addEventListener('storage', checkLoginStatus);
+    return () => window.removeEventListener('storage', checkLoginStatus);
+  }, []);
 
   useEffect(() => {
     async function fetchData() {
@@ -74,7 +85,17 @@ export default function Home() {
   const coordinates = formatCoordinates(selectedLocation);
   const locationOptions = getLocationOptions();
   const timePeriodOptions = getTimePeriodOptions();
-  const mapUrl = generateMapUrl(selectedLocation);
+
+  // Handle location selection from map
+  const handleMapLocationSelected = coords => {
+    const newLocation = {
+      id: 'custom',
+      name: `Ubicación personalizada (${coords.lat.toFixed(3)}, ${coords.lon.toFixed(3)})`,
+      lat: coords.lat,
+      lon: coords.lon,
+    };
+    setSelectedLocation(newLocation);
+  };
 
   return (
     <div className='home-root'>
@@ -86,46 +107,80 @@ export default function Home() {
           {/* Left Section - Map */}
           <section className='home-left-section'>
             <div className='card card--pad'>
-              {/* Location Selector with Coordinates */}
-              <div className='location-section'>
-                <div className='location-header'>
-                  <span className='location-label'>📍 Ubicación:</span>
-                  <select
-                    className='location-dropdown'
-                    value={selectedLocation.id}
-                    onChange={e => {
-                      const location = findLocationById(e.target.value);
-                      setSelectedLocation(location);
-                    }}
-                  >
-                    {locationOptions.map(option => (
-                      <option key={option.key} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className='coordinates-row'>
-                  <div className='coordinate-item'>
-                    <span className='coordinate-icon'>🌐</span>
-                    <div className='coordinate-details'>
-                      <span className='coordinate-label'>Latitud</span>
-                      <span className='coordinate-value'>
-                        {coordinates.latitude}°
-                      </span>
+              {/* Location Selector with Coordinates - Only for non-logged users */}
+              {!isLoggedIn && (
+                <div className='location-section'>
+                  <div className='location-header'>
+                    <span className='location-label'>📍 Ubicación:</span>
+                    <select
+                      className='location-dropdown'
+                      value={selectedLocation.id}
+                      onChange={e => {
+                        const location = findLocationById(e.target.value);
+                        setSelectedLocation(location);
+                      }}
+                    >
+                      {locationOptions.map(option => (
+                        <option key={option.key} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className='coordinates-row'>
+                    <div className='coordinate-item'>
+                      <span className='coordinate-icon'>🌐</span>
+                      <div className='coordinate-details'>
+                        <span className='coordinate-label'>Latitud</span>
+                        <span className='coordinate-value'>
+                          {coordinates.latitude}°
+                        </span>
+                      </div>
+                    </div>
+                    <div className='coordinate-item'>
+                      <span className='coordinate-icon'>🌐</span>
+                      <div className='coordinate-details'>
+                        <span className='coordinate-label'>Longitud</span>
+                        <span className='coordinate-value'>
+                          {coordinates.longitude}°
+                        </span>
+                      </div>
                     </div>
                   </div>
-                  <div className='coordinate-item'>
-                    <span className='coordinate-icon'>🌐</span>
-                    <div className='coordinate-details'>
-                      <span className='coordinate-label'>Longitud</span>
-                      <span className='coordinate-value'>
-                        {coordinates.longitude}°
-                      </span>
+                </div>
+              )}
+
+              {/* Current Location Display for logged-in users */}
+              {isLoggedIn && (
+                <div className='location-section'>
+                  <div className='location-header'>
+                    <span className='location-label'>📍 Ubicación actual:</span>
+                    <span className='location-name'>
+                      {selectedLocation.name}
+                    </span>
+                  </div>
+                  <div className='coordinates-row'>
+                    <div className='coordinate-item'>
+                      <span className='coordinate-icon'>🌐</span>
+                      <div className='coordinate-details'>
+                        <span className='coordinate-label'>Latitud</span>
+                        <span className='coordinate-value'>
+                          {coordinates.latitude}°
+                        </span>
+                      </div>
+                    </div>
+                    <div className='coordinate-item'>
+                      <span className='coordinate-icon'>🌐</span>
+                      <div className='coordinate-details'>
+                        <span className='coordinate-label'>Longitud</span>
+                        <span className='coordinate-value'>
+                          {coordinates.longitude}°
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              )}
 
               <div className='home-time-controls'>
                 {timePeriodOptions.map(option => (
@@ -139,13 +194,62 @@ export default function Home() {
                 ))}
               </div>
 
-              {/* Dynamic Map */}
-              <iframe
-                className='map-frame'
-                title={`Mapa ${selectedLocation.name}`}
-                src={mapUrl}
-                key={`map-${selectedLocation.id}-${selectedLocation.lat}-${selectedLocation.lon}`}
-              ></iframe>
+              {/* Single Interactive Map */}
+              <div style={{ marginBottom: 16, position: 'relative' }}>
+                <h3 style={{ marginTop: 0, marginBottom: 8 }}>
+                  {isLoggedIn
+                    ? '🗺️ Selecciona tu ubicación'
+                    : '🗺️ Mapa de Ubicación'}
+                  {isLoggedIn && (
+                    <span
+                      style={{
+                        fontSize: 12,
+                        fontWeight: 'normal',
+                        opacity: 0.7,
+                      }}
+                    >
+                      {' '}
+                      (Haz clic en el mapa)
+                    </span>
+                  )}
+                </h3>
+                <div style={{ position: 'relative' }}>
+                  <LocationMap
+                    defaultCenter={{
+                      lat: selectedLocation.lat,
+                      lon: selectedLocation.lon,
+                    }}
+                    onLocationSelected={
+                      isLoggedIn ? handleMapLocationSelected : undefined
+                    }
+                    autoLocate={false}
+                    interactive={isLoggedIn}
+                  />
+                  {!isLoggedIn && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        color: 'white',
+                        padding: '12px 20px',
+                        borderRadius: '8px',
+                        fontSize: '14px',
+                        fontWeight: '500',
+                        textAlign: 'center',
+                        zIndex: 1000,
+                        pointerEvents: 'none',
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                      }}
+                    >
+                      🔒 Inicia sesión para interactuar con el mapa
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           </section>
 

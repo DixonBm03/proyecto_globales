@@ -45,7 +45,6 @@ export function getCategory(aqi) {
   return AQI_CATEGORIES[0];
 }
 
-
 /** Recorta el AQI a tu escala visual 0–300 */
 export function clampToScale(aqi) {
   if (aqi == null || Number.isNaN(aqi)) return null;
@@ -55,14 +54,12 @@ export function clampToScale(aqi) {
 /** Devuelve un número de severidad para comparar cambios (0..5 aprox) */
 export function severityIndex(aqi) {
   if (aqi == null) return 0;
-  if (aqi <  51)  return 1;   // Bueno
-  if (aqi < 101)  return 2;   // Moderado
-  if (aqi < 151)  return 3;   // Sensible
-  if (aqi < 201)  return 4;   // No recomendable
-  return 5;                   // Muy peligroso (200+)
+  if (aqi < 51) return 1; // Bueno
+  if (aqi < 101) return 2; // Moderado
+  if (aqi < 151) return 3; // Sensible
+  if (aqi < 201) return 4; // No recomendable
+  return 5; // Muy peligroso (200+)
 }
-
-
 
 export function actionableTips(aqi) {
   if (aqi >= 150) {

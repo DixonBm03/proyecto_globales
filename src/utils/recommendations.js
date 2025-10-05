@@ -13,7 +13,7 @@ export function getClothingRecommendations(weatherData) {
   // Temperature-based clothing
   if (temperature <= 15) {
     recommendations.push({
-      text: '🧥 Abrigo o chaqueta gruesa',
+      text: '🧥 Abrigo grueso o chaqueta de invierno',
       action: 'Recomendado',
       priority: 'high',
     });
@@ -35,7 +35,7 @@ export function getClothingRecommendations(weatherData) {
       priority: 'high',
     });
     recommendations.push({
-      text: '🧴 Protector solar SPF 30+',
+      text: '🧴 Protector solar SPF 30 o superior',
       action: 'Esencial',
       priority: 'high',
     });
@@ -165,23 +165,23 @@ export function getHealthRecommendations(weatherData) {
       priority: 'high',
     });
     recommendations.push({
-      text: '💊 Vitamina C para el sistema inmunológico',
+      text: '💊 Vitamina C para fortalecer el sistema inmunológico',
       action: 'Considerar',
       priority: 'medium',
     });
   } else if (temperature >= 30) {
     recommendations.push({
-      text: '🧴 Protector solar SPF 50+',
+      text: '🧴 Protector solar SPF 50 o superior',
       action: 'Esencial',
       priority: 'high',
     });
     recommendations.push({
-      text: '💧 Hidratación extra (2+ litros de agua)',
+      text: '💧 Hidratación extra (más de 2 litros de agua)',
       action: 'Esencial',
       priority: 'high',
     });
     recommendations.push({
-      text: '🧴 Crema hidratante post-sol',
+      text: '🧴 Crema hidratante post-exposición solar',
       action: 'Recomendado',
       priority: 'medium',
     });
@@ -191,7 +191,7 @@ export function getHealthRecommendations(weatherData) {
   if (weathercode >= 61 && weathercode <= 67) {
     // Rain
     recommendations.push({
-      text: '🧴 Crema antimicótica para pies',
+      text: '🧴 Crema antimicótica para los pies',
       action: 'Considerar',
       priority: 'low',
     });
@@ -200,7 +200,7 @@ export function getHealthRecommendations(weatherData) {
   // Humidity-based health recommendations
   if (humidity > 80) {
     recommendations.push({
-      text: '🧴 Crema para prevenir irritaciones',
+      text: '🧴 Crema para prevenir irritaciones de la piel',
       action: 'Considerar',
       priority: 'low',
     });
@@ -220,7 +220,7 @@ export function getHealthRecommendations(weatherData) {
   // Wind-based health recommendations
   if (windspeed > 15) {
     recommendations.push({
-      text: '🧴 Crema para labios con protección',
+      text: '🧴 Crema protectora para los labios',
       action: 'Recomendado',
       priority: 'medium',
     });
@@ -258,12 +258,12 @@ export function getSunscreenRecommendations(weatherData) {
   } else if (uvIndex >= 6 && uvIndex <= 7) {
     // High UV
     recommendations.push({
-      text: '🧴 Protector solar SPF 30+ esencial',
+      text: '🧴 Protector solar SPF 30 o superior es esencial',
       action: 'Esencial',
       priority: 'high',
     });
     recommendations.push({
-      text: '👒 Gorra, sombrero o sombra entre 10am-4pm',
+      text: '👒 Gorra, sombrero o buscar sombra entre 10am-4pm',
       action: 'Recomendado',
       priority: 'high',
     });
@@ -275,12 +275,12 @@ export function getSunscreenRecommendations(weatherData) {
   } else if (uvIndex >= 8 && uvIndex <= 10) {
     // Very High UV
     recommendations.push({
-      text: '🧴 Protector solar SPF 50+ obligatorio',
+      text: '🧴 Protector solar SPF 50 o superior obligatorio',
       action: 'Crítico',
       priority: 'high',
     });
     recommendations.push({
-      text: '👒 Evitar exposición directa 10am-4pm',
+      text: '👒 Evitar exposición directa al sol entre 10am-4pm',
       action: 'Crítico',
       priority: 'high',
     });
@@ -297,7 +297,7 @@ export function getSunscreenRecommendations(weatherData) {
   } else if (uvIndex >= 11) {
     // Extreme UV
     recommendations.push({
-      text: '🧴 Protector solar SPF 50+ cada 2 horas',
+      text: '🧴 Protector solar SPF 50 o superior cada 2 horas',
       action: 'Crítico',
       priority: 'high',
     });
@@ -346,7 +346,7 @@ export function getHeatStressRecommendations(weatherData) {
       priority: 'high',
     });
     recommendations.push({
-      text: '💧 Hidratación constante (agua cada 15-20 min)',
+      text: '💧 Hidratación constante (agua cada 15-20 minutos)',
       action: 'Crítico',
       priority: 'high',
     });
@@ -378,7 +378,7 @@ export function getHeatStressRecommendations(weatherData) {
       priority: 'medium',
     });
     recommendations.push({
-      text: '💧 Aumentar ingesta de agua (2-3 litros/día)',
+      text: '💧 Aumentar ingesta de agua (2-3 litros por día)',
       action: 'Esencial',
       priority: 'high',
     });
@@ -660,7 +660,7 @@ export function getWaterSafetyRecommendations(weatherData) {
   // WHO guidelines for hydration during heat stress
   if (temperature >= 30) {
     recommendations.push({
-      text: '💧 Beber agua antes de sentir sed (WHO recomienda)',
+      text: '💧 Beber agua antes de sentir sed (recomendación OMS)',
       action: 'Esencial',
       priority: 'high',
     });
@@ -689,7 +689,7 @@ export function getWaterSafetyRecommendations(weatherData) {
   // WHO guidelines for dry air conditions
   if (humidity < 30) {
     recommendations.push({
-      text: '💧 Hidratación extra por aire seco (WHO)',
+      text: '💧 Hidratación extra por aire seco (recomendación OMS)',
       action: 'Recomendado',
       priority: 'medium',
     });
@@ -815,11 +815,11 @@ export function getWeatherDescription(weathercode) {
     73: 'Nieve moderada',
     75: 'Nieve intensa',
     77: 'Granos de nieve',
-    80: 'Chubascos ligeros',
-    81: 'Chubascos moderados',
-    82: 'Chubascos intensos',
-    85: 'Chubascos de nieve ligeros',
-    86: 'Chubascos de nieve intensos',
+    80: 'Lluvia intermitente ligera',
+    81: 'Lluvia intermitente moderada',
+    82: 'Lluvia intermitente intensa',
+    85: 'Nieve intermitente ligera',
+    86: 'Nieve intermitente intensa',
     95: 'Tormenta eléctrica',
     96: 'Tormenta eléctrica con granizo ligero',
     99: 'Tormenta eléctrica con granizo intenso',
