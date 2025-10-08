@@ -43,7 +43,7 @@ const RESOURCES = [
             'En días de PM2.5, cierra ventanas y filtra el aire interior.',
         ],
         links: [{ label: 'Guía PM (AirNow)', url: 'https://www.airnow.gov/pm/' }],
-        pdf: '/docs/air-quality-guide_particle_SPA.pdf',
+        pdf: 'https://www.miteco.gob.es/content/dam/miteco/es/calidad-y-evaluacion-ambiental/temas/atmosfera-y-calidad-del-aire/infografia_1_web_tcm30-564732.pdf',
         riskLevel: 'Todos',
     },
     {
@@ -58,7 +58,7 @@ const RESOURCES = [
             'Reducir exposición: permanecer en interiores y evitar picos de AQI.',
         ],
         links: [{ label: 'Calidad del aire y salud', url: 'https://www.airnow.gov/air-quality-and-health/' }],
-        pdf: '/docs/air-quality-guide_particle_SPA.pdf',
+        pdf: 'https://health.bentoncountyor.gov/wp-content/uploads/2024/06/PHCC_Understanding-Air-Quality_SPA.pdf',
         riskLevel: 'USG/Insalubre',
     },
     {
@@ -73,7 +73,7 @@ const RESOURCES = [
             'Usar rutas con menos tráfico y espacios verdes interiores.',
         ],
         links: [{ label: 'Consejos de exposición', url: 'https://www.airnow.gov/air-quality-and-health/' }],
-        pdf: '/docs/air-quality-guide_particle_SPA.pdf',
+        pdf: 'https://health.bentoncountyor.gov/wp-content/uploads/2024/06/PHCC_Understanding-Air-Quality_SPA.pdf',
         riskLevel: 'USG/Insalubre',
     },
     {
@@ -88,7 +88,7 @@ const RESOURCES = [
             'Evitar esfuerzos intensos aun con mascarilla si el AQI es muy alto.',
         ],
         links: [{ label: 'Guía rápida PM2.5', url: 'https://www.airnow.gov/pm/' }],
-        pdf: '/docs/air-quality-guide_particle_SPA.pdf',
+        pdf: 'https://www.rwjbh.org/documents/rwjbh-infographic-face-mask-safety-spanish-english.pdf',
         riskLevel: 'Insalubre/Muy insalubre',
     },
     {
@@ -103,7 +103,7 @@ const RESOURCES = [
             'Sellar filtraciones en ventanas/puertas en episodios de humo.',
         ],
         links: [{ label: 'Guía de interiores (AirNow)', url: 'https://www.airnow.gov/' }],
-        pdf: '/docs/air-quality-guide_particle_SPA.pdf',
+        pdf: 'https://www.airnow.gov/sites/default/files/2023-08/filtracion-del-aire-interior.pdf',
         riskLevel: 'USG/Insalubre',
     },
     {
@@ -118,7 +118,7 @@ const RESOURCES = [
             'Trasladar sesiones intensas a interiores ventilados/filtrados.',
         ],
         links: [{ label: 'AQI y actividad física', url: 'https://www.airnow.gov/' }],
-        pdf: '/docs/air-quality-guide_particle_SPA.pdf',
+        pdf: 'https://doh.wa.gov/sites/default/files/2023-07/334-332-Spanish.pdf',
         riskLevel: 'Moderado/USG',
     },
     {
@@ -133,7 +133,7 @@ const RESOURCES = [
             'Comunicar a familias cuando se activen medidas especiales.',
         ],
         links: [{ label: 'Actividades escolares y AQI', url: 'https://www.airnow.gov/' }],
-        pdf: '/docs/air-quality-guide_particle_SPA.pdf',
+        pdf: 'https://doh.wa.gov/sites/default/files/2023-07/334-332-Spanish.pdf',
         riskLevel: 'Moderado/USG',
     },
     {
@@ -148,7 +148,7 @@ const RESOURCES = [
             'Evitar cocinar con aceite a alta temperatura o usar velas/incienso.',
         ],
         links: [{ label: 'Consejos en humo', url: 'https://www.airnow.gov/wildfires/' }],
-        pdf: '/docs/air-quality-guide_particle_SPA.pdf',
+        pdf: 'https://doh.wa.gov/sites/default/files/2023-07/334-332-Spanish.pdf',
         riskLevel: 'Insalubre/Muy insalubre',
     },
     {
@@ -163,7 +163,7 @@ const RESOURCES = [
             'Revisar pronóstico de calor y AQI en conjunto.',
         ],
         links: [{ label: 'Salud y olas de calor', url: 'https://www.who.int/' }],
-        pdf: '/docs/air-quality-guide_particle_SPA.pdf',
+        pdf: 'https://oehha.ca.gov/sites/default/files/media/2024-10/childheatfsspanish042924.pdf',
         riskLevel: 'USG/Insalubre',
     },
 ];
