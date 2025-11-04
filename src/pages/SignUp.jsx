@@ -27,11 +27,6 @@ export default function SignUp() {
       const checkResponse = await fetch(`${mockApiUrl}?username=${username}`);
       const existingUsers = await checkResponse.json();
 
-      if (existingUsers.length > 0) {
-        alert('Ese nombre de usuario ya está en uso. Por favor, elige otro.');
-        return;
-      }
-
       const registerResponse = await fetch(mockApiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
