@@ -37,7 +37,7 @@ export default function SignUp() {
         alert(
           '¡Registro exitoso! Ya puedes iniciar sesión con tu nueva cuenta.'
         );
-        navigate('/iniciar-sesion'); // Redirige al login para que inicie sesión
+        navigate('/Login');
       } else {
         alert('Hubo un error al registrar el usuario. Inténtalo de nuevo.');
       }
